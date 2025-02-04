@@ -9,7 +9,7 @@ Route::get('/retro', function () {
         'token' => str()->random(8),
     ]);
 
-    return redirect()->to('/retro/'.$board->token);
+    return redirect()->to('/retro/' . $board->token);
 });
 
 Route::get('/retro/{token}', App\Livewire\RetroBoardComponent::class)
@@ -23,4 +23,4 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

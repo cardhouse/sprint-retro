@@ -14,6 +14,8 @@ class RetroBoardComponent extends Component
 
     public $board;
 
+    public $link_to_board;
+
     public $newItemContent = [
         'went_well' => '',
         'could_improve' => '',
@@ -39,12 +41,13 @@ class RetroBoardComponent extends Component
     {
         $this->boardToken = $token;
         $this->board = RetroBoard::with('items')->where('token', $token)->firstOrFail();
+        $this->link_to_board = url()->current();
     }
 
     public function addItem($category)
     {
         $this->validate([
-            'newItemContent.'.$category => 'required',
+            'newItemContent.' . $category => 'required',
         ]);
 
         $this->board->items()->create([
@@ -76,9 +79,9 @@ class RetroBoardComponent extends Component
         $this->refreshBoard();
     }
 
-    public function saveBoard()
+    public function toggleSave()
     {
-        $this->board->update(['is_saved' => true]);
+        $this->board->update(['is_saved' => !$this->board->is_saved]);
     }
 
     public function refreshBoard()

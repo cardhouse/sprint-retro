@@ -4,17 +4,17 @@
         <flux:heading size="xl">Team Retrospective</flux:heading>
         <div class="text-lg">
             Time remaining:
-            <span
-                x-text="Math.floor(timeRemaining / 60) + ':' + ((timeRemaining % 60) < 10 ? '0' : '') + (timeRemaining % 60)"></span>
+            <livewire:timer></livewire:timer>
         </div>
+        <flux:switch wire:change="toggleSave" label="Save Board" @if ($this->board->is_saved) checked @endif />
+
+
         @if (!$this->board->is_saved)
             <button wire:click="saveBoard" class="px-4 py-2 text-white bg-blue-500 rounded">
                 Save Board
             </button>
         @else
-            <flux:input id="board-url" type="text" disabled readonly value="foo" />
-
-            <flux:button data-copy-to-clipboard-target="board-url">Copy board URL</flux:button>
+            {{ $link_to_board }}
         @endif
     </div>
 
@@ -28,6 +28,9 @@
             </div>
             <div>
                 <flux:textarea rows="auto" wire:model.defer="newItemContent.went_well" />
+                @error('newItemContent.went_well')
+                    <div class="text-red-500">{{ $message }}</div>
+                @enderror
             </div>
             <flux:button wire:click="addItem('went_well')" variant="primary" class="w-full">Add Item</flux:button>
             <flux:separator />
@@ -64,7 +67,7 @@
             <flux:separator />
             <ul class="divide-y divide-gray-200 dark:divide-gray-500">
                 @foreach ($couldImproveItems as $item)
-                    <li class="flex items-center justify-between p-2 mb-2">
+                    <li key class="flex items-center justify-between p-2 mb-2">
                         <span>{{ $item->content }}</span>
                         <flux:badge class="ml-4" as="button" wire:click="voteItem({{ $item->id }})"
                             variant="pill" icon="hand-thumb-up" size="sm">
