@@ -14,8 +14,7 @@
                 Save Board
             </button>
         @else
-            <flux:input as="button" value="{{ $link_to_board }}" readonly copyable></flux:input>
-            {{ $link_to_board }}
+            <flux:input icon="key" value="{{ $link_to_board }}" readonly copyable />
         @endif
     </div>
 
