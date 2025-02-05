@@ -2,12 +2,6 @@
     <!-- Header with title, timer, and Save Board button -->
     <div class="flex items-center justify-between mb-4">
         <flux:heading size="xl">Team Retrospective</flux:heading>
-        <div class="text-lg">
-            Time remaining:
-            <livewire:timer></livewire:timer>
-        </div>
-        <flux:switch wire:change="toggleSave" label="Save Board" @if ($this->board->is_saved) checked @endif />
-
 
         @if (!$this->board->is_saved)
             <button wire:click="saveBoard" class="px-4 py-2 text-white bg-blue-500 rounded">
