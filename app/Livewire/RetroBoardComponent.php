@@ -79,7 +79,7 @@ class RetroBoardComponent extends Component
         $this->refreshBoard();
     }
 
-    public function toggleSave()
+    public function saveBoard()
     {
         $this->board->update(['is_saved' => !$this->board->is_saved]);
     }
